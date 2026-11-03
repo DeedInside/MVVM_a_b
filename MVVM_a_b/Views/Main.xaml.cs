@@ -7,10 +7,17 @@ namespace MVVM_a_b.Views
     {
         public Main()
         {
-            InitializeComponent();
+            AutorizationWindow autorization = new AutorizationWindow();
 
-            DataContext = new MainVM();
-
+            if(autorization.ShowDialog() == true)
+            {
+                InitializeComponent();
+                DataContext = new MainVM(autorization.AuthUser);
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }
