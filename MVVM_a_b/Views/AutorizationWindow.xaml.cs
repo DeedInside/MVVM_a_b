@@ -6,26 +6,26 @@ namespace MVVM_a_b.Views
 {
     public partial class AutorizationWindow : Window
     {
-        private User authUser = null;
-        public User AuthUser {
-            get
-            {
-                return authUser;
-            }
-            set
-            {
-                //todo создание объекта 1 раз
-                if(value is User && value != null)
-                {
-                    authUser = value;
-                    DialogResult = true;
-                }
-            }
-        }
+        public User AuthUser { get; set; }
         public AutorizationWindow()
         {
             InitializeComponent();
-            DataContext = new AutorizationVM(AuthUser);
+            AutorizationVM vm = new AutorizationVM();
+            vm.Dialog += Dialog;
+            DataContext = vm;
+            
+        }
+        public void Dialog(object sender, EventArgs e)
+        {
+            if(sender is User user)
+            {
+                AuthUser = user;
+                DialogResult = true;
+            }
+            else
+            {
+                DialogResult = false;
+            }
         }
     }
 }

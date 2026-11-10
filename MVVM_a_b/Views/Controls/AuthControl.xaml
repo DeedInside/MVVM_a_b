@@ -19,11 +19,13 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5" 
                     HorizontalAlignment="Center">
-                <Button Content="Выйти" Width="110" Margin="0 0 5 0"/>
+                <Button Content="Выйти" Width="110" Margin="0 0 5 0"
+                        Command="{Binding ExitUser}"/>
                 <Button Content="Войти" Width="110"
                         Command="{Binding LoginUser}"/>
             </StackPanel>
-            <Button Content="Регистрация" Width="225"/>
+            <Button Content="Регистрация" Width="225"
+                    Command="{Binding RegUser}"/>
         </StackPanel>
     </StackPanel>
 </UserControl>

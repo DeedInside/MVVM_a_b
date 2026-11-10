@@ -7,14 +7,15 @@ namespace MVVM_a_b.Views.Controls
 {
     public partial class AuthControl : UserControl
     {
-        private User authUser;
+        public event EventHandler? EventReg;
+        public event EventHandler? EventLogin;
+        public User AuthUser { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public AuthControl(User authUser)
+        public AuthControl()
         {
             InitializeComponent();
             DataContext = this;
-            this.authUser = authUser;
         }
         private RelayCommand loginUser;
         public RelayCommand LoginUser
@@ -31,7 +32,8 @@ namespace MVVM_a_b.Views.Controls
 
                           if (user != null)
                           {
-                              authUser = user;
+                              AuthUser = user;
+                              EventLogin.Invoke(this, EventArgs.Empty);
                           }
                           else
                           {
@@ -42,6 +44,31 @@ namespace MVVM_a_b.Views.Controls
                       {
                           MessageBox.Show("Заполните все поля");
                       }
+                  }));
+            }
+        }
+
+        private RelayCommand regUser;
+        public RelayCommand RegUser
+        {
+            get
+            {
+                return regUser ??
+                  (regUser = new RelayCommand(obj =>
+                  {
+                      EventReg?.Invoke(this, EventArgs.Empty);
+                  }));
+            }
+        }
+        private RelayCommand exitUser;
+        public RelayCommand ExitUser
+        {
+            get
+            {
+                return exitUser ??
+                  (exitUser = new RelayCommand(obj =>
+                  {
+                      //todo выход из приложения
                   }));
             }
         }
